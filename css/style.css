@@ -1,0 +1,19 @@
+.my_slider {
+    overflow: hidden;
+}
+
+.my_height {
+    height: 500px;
+}
+
+.my_height2 {
+    width: 100%;
+    height: 20%;
+}
+
+.my_img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
