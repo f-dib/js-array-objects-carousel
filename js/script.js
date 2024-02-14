@@ -103,6 +103,7 @@ function showObj (obj){
 
 
 document.querySelector("#side_left img:nth-of-type(1)").className = "active";
+document.querySelector("#side_right div:nth-of-type(1)").className += " active";
 
 /*
 -  salvo un contatore della slide
@@ -124,12 +125,14 @@ document.querySelector("#down-arrow").addEventListener("click", function() {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // - aumento il contatore di 1
         slideNumber++;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.add("active");
 
         console.log(slideNumber);
 
@@ -137,12 +140,14 @@ document.querySelector("#down-arrow").addEventListener("click", function() {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // resetto la variabile che mi conta l'immagine a cui sono arrivato
         slideNumber = 1;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.add("active");
 
         console.log(slideNumber);
     }
@@ -156,12 +161,14 @@ document.querySelector("#up-arrow").addEventListener("click", function() {
     if (slideNumber > 1) {
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // - diminuisco il contatore di 1
         slideNumber--;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.add("active");
 
         console.log(slideNumber);
 
@@ -169,12 +176,14 @@ document.querySelector("#up-arrow").addEventListener("click", function() {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // - metto il valore di slideNumebr = alla posizione dell'ultima immagine
         slideNumber = images.length;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
         document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.add("active");
 
         console.log(slideNumber);
     }
