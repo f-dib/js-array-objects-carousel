@@ -7,15 +7,20 @@
     height: 20%;
 }
 
-#side_left img:not(.active) {
+#side_left div:not(.active) {
     display: none;
 }
 
-#side_left img.active {
+#side_left div.active {
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+}
+
+.my_position {
+    top: 400px;
+    right: 30px;
 }
 
 #side_right div.active {
