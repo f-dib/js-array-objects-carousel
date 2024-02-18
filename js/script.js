@@ -6,7 +6,7 @@ let rightElement = document.querySelector("#side_right");
 const images = [
     {
         image: 'img/01.webp',
-        title: 'Marvel\'s Spiderman Miles Morale',
+        title: 'Marvel\'s Spiderman Miles Morales',
         text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
     }, {
         image: 'img/02.webp',
@@ -86,11 +86,11 @@ function showObj (obj){
         }
 
         // I show the results obtained on the page
-        rightElement.innerHTML += `<div class="my_height2">       
+        rightElement.innerHTML += `<div class="my_height2 thumb">       
                                         ${photo}
                                     </div>`;
 
-        leftElement.innerHTML += `<div class="position-relative">
+        leftElement.innerHTML += `<div class="position-relative slide">
                                         ${photo}
                                         <div class="position-absolute my_position text-white text-end">
                                             ${title}
@@ -212,63 +212,147 @@ document.querySelector("#up-arrow").addEventListener("click", function() {
 });
 
 
-// interval();
-
-// function interval(){
-//     document.querySelector("#down-arrow").addEventListener("click", 
-//     function() { setInterval(function() {
-        
-//         document.querySelector("#down-arrow").addEventListener("click", function() {
 
 
-//             if (slideNumber < images.length) {
-        
-//                 // - prendo l'immagine attuale e le rimuovo la classe "active"  
-//                 document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.remove("active");
-//                 document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.remove("active");
-        
-//                 // - aumento il contatore di 1
-//                 slideNumber++;
-        
-//                 // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-//                 document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.add("active");
-//                 document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.add("active");
-        
-//                 console.log(slideNumber);
-        
-//             } else {
-        
-//                 // - prendo l'immagine attuale e le rimuovo la classe "active"  
-//                 document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.remove("active");
-//                 document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.remove("active");
-        
-//                 // resetto la variabile che mi conta l'immagine a cui sono arrivato
-//                 slideNumber = 1;
-        
-//                 // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-//                 document.querySelector(`#side_left img:nth-of-type(${slideNumber})`).classList.add("active");
-//                 document.querySelector(`#side_right div:nth-of-type(${slideNumber})`).classList.add("active");
-        
-//                 console.log(slideNumber);
-//             }
-        
-                
-//         });
-        
+
+
+// questa riga mostra la prima slide al caricamento della pagina
+showSlide(1);
+
+
+/*************** EXPERIMENT *******************/ 
+
+// commenti
+// provare ad utilizzare il this per prendere l'active
+// prende il click solo sulle thumb in active
+
+
+
+// gestione click delle thumbnail
+// fare in modo che tutte le thumbnail abbiano un addEventListener
+// al click di una thumbnail verrà attivata la slide corrispondente
+// (cliccando sulla SECONDA thumbnail verrà mostrata la SECONDA slide)
+
+// ripeschiamo dal nostro document tutte le thumbnail
+// const thumbnailsElements = document.querySelectorAll("#side_right div:nth-of-type(1)");
+
+
+// // gestisco i click delle thumbnail
+// thumbnailsElements.forEach(((currentThumbnail, index) => {
+
+//     // quando clicchiamo su una thumbnail
+//     currentThumbnail.addEventListener("click", () => {
+
+//         slideNumber = index + 1;
     
-//     }, 1000);})
-// }
+
+//         showSlide(slideNumber);
+
+//         console.log("tasto cliccato");
+//         // viewThumbnail(currentThumbnail, index)
+
+//     })
+
+// }));
 
 
 
 
+function showSlide(number) {
+    // number -> slide da mostrare e anteprima collegata
+    
+    // codice per mostrare la slide corretta
+
+    // rimuoviamo la classe "active" da tutte le altre slide
+
+    // ci metto tutte le slide 
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach(currentSlide => {
+        currentSlide.classList.remove("active")
+    }) 
+
+    // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+    document.querySelector(`#side_left .slide:nth-of-type(${number})`).classList.add("active");
+    document.querySelector(`#side_left .slide:nth-of-type(${number}) div`).classList.add("active");
+
+
+    // codice per mostrare la thumbnail corretta
+
+    // prendere tutte le anteprime e rimuovere la classe active
+    const thumbs = document.querySelectorAll(".thumb");
+    thumbs.forEach(thumb => {
+        thumb.classList.remove("active");
+    })
+
+    document.querySelector(`.thumb:nth-of-type(${number})`).classList.add("active");
+}
+
+
+// al caricamento della pagina parte un timer
+// ogni 3 secondi cambia in automatico la slide
+
+
+// mi salvo gli elementi dei pulsanti
+const playButton = document.querySelector("#play-button");
+const pauseButton = document.querySelector("#pause-button");
+const reverseButton = document.querySelector("#reverse-button");
 
 
 
 
+let timer;
+
+playButton.addEventListener("click", () => {
+
+    playButton.style.display = "none";
+    pauseButton.style.display = "inline-block";
+    reverseButton.style.display = "none";
+
+
+    timer = setInterval(function() {
+    
+        if(slideNumber > images.length -1) {
+            slideNumber = 1;
+            showSlide(slideNumber);
+    
+        } else {
+    
+            slideNumber++;
+            showSlide(slideNumber);
+        }
+    
+    }, 3000);
+});
+
+
+pauseButton.addEventListener("click", () => {
+    playButton.style.display = "inline-block";
+    reverseButton.style.display = "inline-block"
+    pauseButton.style.display = "none";
+
+    clearInterval(timer);
+});
+
+
+reverseButton.addEventListener("click", () => {
+    reverseButton.style.display = "none"
+    playButton.style.display = "none";
+    pauseButton.style.display = "inline-block";
 
 
 
+    timer = setInterval(function() {
+    
+        if(slideNumber <= 1) {
+            slideNumber = images.length;
+            showSlide(slideNumber);
+    
+        } else {
+    
+            slideNumber--;
+            showSlide(slideNumber);
+        }
+    
+    }, 3000);
 
-
-
+});
